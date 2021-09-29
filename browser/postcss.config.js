@@ -6,7 +6,7 @@ module.exports = {
     plugins: [
         new Px2remPP({
             propList: ['*'],
-            rootValue: 48
+            rootValue: 30
         })
     ]
 };

@@ -11,22 +11,20 @@ export default {};
 <style lang="less">
 @import url(./assets/less/variables.less);
 @import url(./assets/less/devices-mixin.less);
+@import url(./assets/less/flex-mixin.less);
 
 .devices-mx(@v-devices, @v-rem-percent);
 
 body {
-    float: left;
-    width: 100%;
-    overflow: hidden;
+    .flex-mx();
     margin: 0;
-    background-color: #ccc;
 }
 </style>
 
 <style lang="less" scoped>
+@import url(./assets/less/flex-mixin.less);
+
 #root {
-    float: left;
-    width: 100%;
-    overflow: hidden;
+    .flex-mx();
 }
 </style>
