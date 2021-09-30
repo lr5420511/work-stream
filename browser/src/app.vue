@@ -15,6 +15,10 @@ export default {};
 
 .devices-mx(@v-devices, @v-rem-percent);
 
+html {
+    overflow: auto;
+}
+
 body {
     .flex-mx();
     margin: 0;

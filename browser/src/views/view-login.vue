@@ -6,10 +6,8 @@
             ></ser-scene>
         </el-aside>
         <el-main class="view-login-right">
-            <el-progress :show-text="false"
-                         :stroke-width="1"
-                         :percentage="progressValue"
-            ></el-progress>
+            <ser-progress :value="progressValue"
+            ></ser-progress>
             <ser-login class="view-login-auth"
                        :nameRegular="userRegular"
                        :pwdRegular="pwdRegular"
@@ -22,12 +20,14 @@
 <script>
 import ServiceScene from '../components/service-scene.vue';
 import ServiceLogin from '../components/service-login.vue';
+import ServiceProgress from '../components/service-progress.vue';
 import { USER_REGULAR, PWD_REGULAR } from '../config';
 
 export default {
     components: {
         'ser-scene': ServiceScene,
-        'ser-login': ServiceLogin
+        'ser-login': ServiceLogin,
+        'ser-progress': ServiceProgress
     },
     data: () => ({
         leftHeight: 0,
@@ -36,6 +36,8 @@ export default {
         pwdRegular: PWD_REGULAR
     }),
     created: async function() {
+        const { scenes } = this.$store.getters;
+        if(scenes.some(scene => scene)) return;
         //临时模拟请求
         const temps = await new Promise(res => 
             setTimeout(() => res([
@@ -50,7 +52,7 @@ export default {
                 './temp/images/9.jpg',
                 './temp/images/10.jpg',
                 './temp/images/11.jpg'
-            ]), 4000)
+            ]), 8000)
         );
         this.$store.commit('writeScenes', { scenes: temps });
     },
@@ -60,14 +62,16 @@ export default {
     methods: {
         commitLogin: async function(user) {
             if(!user) return;
-            const timer = setInterval(() => ++this.progressValue - 99 || clearInterval(timer), 50);
+            this.progressValue = 99;
             // 模拟请求
-            const res = await new Promise(res => setTimeout(() => res(null), 8000));
+            const res = await new Promise(res => 
+                setTimeout(() => res(Math.floor(Math.random() * 10) > 4 ? user : null), 4000)
+            );
+            res || this.$message({ type: 'error', message: '账户信息验证失败，请检查！' });
+            if(res) {
+                this.$router.push('/index');
+            }
             this.progressValue = 0;
-            res || this.$message({
-                type: 'error',
-                message: '登入失败，请检查键入信息！'
-            });
         }
     }
 };
@@ -82,7 +86,7 @@ export default {
         padding: 0;
     }
     &-auth {
-        margin-top: 160px;
+        margin-top: 150px;
     }
 }
 </style>

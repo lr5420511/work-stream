@@ -58,7 +58,7 @@ export default {
                         const valid = this.nameRegular.test(val);
                         callback(...(valid ? [] : [new Error('输入用户名格式有误，请检查！')]));
                     },
-                    trigger: 'change'
+                    trigger: 'blur'
                 }
             ],
             password: [
@@ -67,7 +67,7 @@ export default {
                         const valid = this.pwdRegular.test(val);
                         callback(...(valid ? [] : [new Error('输入密码格式有误，请检查！')]));
                     },
-                    trigger: 'change'
+                    trigger: 'blur'
                 }
             ]
         };

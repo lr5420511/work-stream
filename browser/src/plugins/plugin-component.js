@@ -13,7 +13,15 @@ import {
     Button,
     ButtonGroup,
     Progress,
-    Message
+    Message,
+    Header,
+    Footer,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Avatar,
+    Row,
+    Col
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -30,7 +38,15 @@ Vue.prototype.$message = Message;
     Input,
     Button,
     ButtonGroup,
-    Progress
+    Progress,
+    Header,
+    Footer,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Avatar,
+    Row,
+    Col
 ].reduce((res, cur) => res.use(cur), Vue);
 
 
