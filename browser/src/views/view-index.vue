@@ -7,11 +7,14 @@
                     <el-image class="view-index-logo"
                               fit="fill"
                               :src="systemLogo"
-                              @click.stop="isSimply=!isSimply">
+                              @click.stop="isCollapse=!isCollapse">
                     </el-image>
                 </el-col>
                 <el-col :span="2">
-                    <ser-self size="1.4rem"
+                    <ser-self class="view-index-self"
+                              size="1.4rem"
+                              :name="$store.getters.realname"
+                              :path="$store.getters.path"
                               :options="selfOptions"
                               @checked="checkOption">
                     </ser-self>
@@ -20,10 +23,15 @@
         </el-header>
         <el-container>
             <el-aside width="auto">
-                <div style="width:300px;height:460px;border-right:solid 1px #ccc;"></div>
+                <ser-navigator class="view-index-navigator"
+                               minHeight="20rem"
+                               :isCollapsed="isCollapse"
+                               :defaultPath="$store.getters.defaultPath"
+                               :options="$store.getters.operators"
+                ></ser-navigator>
             </el-aside>
             <el-main>
-                
+                <router-view></router-view>
             </el-main>
         </el-container>
         <el-footer class="view-index-bottom"
@@ -41,7 +49,7 @@
 import LOGO from '../assets/images/logo.png';
 import ServiceSelf from '../components/service-self.vue';
 import ServiceNavigator from '../components/service-navigator.vue';
-import { COMPLEX_VALIDATE_USER_URL } from '../config';
+import { SIMPLY_VALIDATE_USER_URL } from '../config';
 
 export default {
     components: {
@@ -50,14 +58,20 @@ export default {
     },
     data: () => ({
         systemLogo: LOGO,
-        isSimply: true,
+        isCollapse: false,
         selfOptions: [
             { text: '上传头像', icon: 'el-icon-upload2' },
             { text: '修改密码', icon: 'el-icon-edit-outline' }
         ]
     }),
     created: async function() {
-
+        // 模拟身份验证
+        const account = [this.$store.getters.username, this.$store.getters.password],
+            res = await new Promise(res => setTimeout(() => {
+                const valid = account[0] === 'u826' && account[1] === 'LR$5420511';
+                res(valid ? account : null);
+            }, 1500));
+        res || this.$router.replace('/login');
     },
     methods: {
         checkOption: function(cmd) {
@@ -74,7 +88,7 @@ export default {
     background-color: extract(@v-colors, 6);
     &-top {
         box-shadow: 0 0 2px 1px extract(@v-colors, 5);
-        padding: 10px;
+        padding: 5px 20px;
     }
     &-bottom {
         background-color: extract(@v-colors, 3);
@@ -87,6 +101,12 @@ export default {
         width: 42px;
         height: 42px;
         cursor: pointer;
+    }
+    &-self {
+        float: right;
+    }
+    &-navigator {
+        margin: 10px 0;
     }
 }
 </style>

@@ -21,7 +21,7 @@
 import ServiceScene from '../components/service-scene.vue';
 import ServiceLogin from '../components/service-login.vue';
 import ServiceProgress from '../components/service-progress.vue';
-import { USER_REGULAR, PWD_REGULAR } from '../config';
+import { USER_REGULAR, PWD_REGULAR, COMPLEX_VALIDATE_USER_URL } from '../config';
 
 export default {
     components: {
@@ -64,11 +64,29 @@ export default {
             if(!user) return;
             this.progressValue = 99;
             // 模拟请求
-            const res = await new Promise(res => 
-                setTimeout(() => res(Math.floor(Math.random() * 10) > 4 ? user : null), 4000)
-            );
+            const res = await new Promise(res => setTimeout(() => {
+                const valid = user.username === 'u826' && user.password === 'LR$5420511';
+                res(valid ? {
+                    username: 'u826',
+                    password: 'LR$5420511',
+                    realname: '廖睿',
+                    path: './temp/images/me.jpg',
+                    operators: [
+                        { 
+                            icon: 'el-icon-setting', title: '系统管理', 
+                            children: [
+                                { title: '角色管理', path: '/index/role' },
+                                { title: '权限管理', path: '/index/limit' }
+                            ] 
+                        },
+                        { icon: 'el-icon-house', title: '主页', path: '/index/profile' },
+                        { icon: 'el-icon-user', title: '用户管理', path: '/index/user' }
+                    ]
+                } : null);
+            }, 4000));
             res || this.$message({ type: 'error', message: '账户信息验证失败，请检查！' });
             if(res) {
+                this.$store.commit('writeUser', res);
                 this.$router.push('/index');
             }
             this.progressValue = 0;

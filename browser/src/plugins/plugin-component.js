@@ -21,7 +21,10 @@ import {
     DropdownItem,
     Avatar,
     Row,
-    Col
+    Col,
+    Menu,
+    Submenu,
+    MenuItem
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -46,7 +49,10 @@ Vue.prototype.$message = Message;
     DropdownItem,
     Avatar,
     Row,
-    Col
+    Col,
+    Menu,
+    Submenu,
+    MenuItem
 ].reduce((res, cur) => res.use(cur), Vue);
 
 
