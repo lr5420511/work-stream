@@ -1,5 +1,5 @@
 <template>
-    <el-container>This is role page.</el-container>
+    <div>Entrust query</div>
 </template>
 
 <script>

@@ -16,6 +16,7 @@
                       placeholder="在此处键入密码"
                       :show-password="true"
                       v-model="user.password"
+                      @change="loginEnter"
             ></el-input>
         </el-form-item>
         <el-form-item class="service-login-line">

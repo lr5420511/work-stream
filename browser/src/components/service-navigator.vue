@@ -1,6 +1,5 @@
 <template>
     <el-menu class="service-navigator"
-             background-color="transparent"
              :router="true"
              :collapse="isCollapsed"
              :default-active="defaultPath"

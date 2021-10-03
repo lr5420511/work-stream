@@ -1,5 +1,5 @@
 <template>
-    <el-container>This is user page.</el-container>    
+    <div>欢迎您！</div>
 </template>
 
 <script>

@@ -72,15 +72,60 @@ export default {
                     realname: '廖睿',
                     path: './temp/images/me.jpg',
                     operators: [
-                        { 
-                            icon: 'el-icon-setting', title: '系统管理', 
+                        {
+                            icon: 'el-icon-s-order',
+                            title: '委托管理',
                             children: [
-                                { title: '角色管理', path: '/index/role' },
-                                { title: '权限管理', path: '/index/limit' }
+                                { title: '委托申请', path: '/index/entrust-apply' },
+                                { title: '委托发起', path: '/index/entrust-launch' },
+                                { title: '委托审核', path: '/index/entrust-review' }
+                            ]
+                        },
+                        {
+                            icon: 'el-icon-s-grid',
+                            title: '角色授权',
+                            children: [
+                                { title: '授权导航', path: '/index/menu-authorize' },
+                                { title: '授权操作', path: '/index/operate-authorize' }
+                            ]
+                        },
+                        {
+                            icon: 'el-icon-s-management',
+                            title: '字典管理',
+                            children: [
+                                { title: '用户管理', path: '/index/users' },
+                                { title: '角色管理', path: '/index/roles' },
+                                { title: '权限管理', path: '/index/limites' }
+                            ]
+                        },
+                        { 
+                            icon: 'el-icon-s-tools', 
+                            title: '系统设置',
+                            children: [
+                                { title: '颜色风格', path: '/index/color-setting' },
+                                { title: '场景编辑', path: '/index/scene-setting' }
                             ] 
                         },
-                        { icon: 'el-icon-house', title: '主页', path: '/index/profile' },
-                        { icon: 'el-icon-user', title: '用户管理', path: '/index/user' }
+                        {
+                            icon: 'el-icon-s-home',
+                            title: '欢迎您',
+                            path: '/index/welcome'
+                        },
+                        {
+                            icon: 'el-icon-s-promotion',
+                            title: '发起的委托',
+                            path: '/index/my-launch'
+                        },
+                        {
+                            icon: 'el-icon-s-ticket',
+                            title: '接收的委托',
+                            path: '/index/my-receive'
+                        },
+                        {
+                            icon: 'el-icon-search',
+                            title: '委托查询',
+                            path: '/index/entrust-query'
+                        }
                     ]
                 } : null);
             }, 4000));

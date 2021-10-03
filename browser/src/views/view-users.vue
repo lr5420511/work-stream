@@ -1,5 +1,5 @@
 <template>
-    <el-container>This is profile page.</el-container>    
+    <div>Users</div>    
 </template>
 
 <script>
