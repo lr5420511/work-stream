@@ -91,7 +91,7 @@ export default {
         padding: 5px 20px;
     }
     &-bottom {
-        background-color: extract(@v-colors, 3);
+        background-color: extract(@v-colors, 2);
         color: extract(@v-colors, 6);
         padding: 50px 0;
         text-align: center;

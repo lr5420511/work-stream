@@ -1,5 +1,5 @@
 <template>
-    <div>欢迎您！</div>
+    <div>Welcome to work stream example.</div>
 </template>
 
 <script>
