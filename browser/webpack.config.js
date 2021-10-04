@@ -15,7 +15,7 @@ const conf = module.exports = {
         'work-stream': './src/app.js'
     },
     output: {
-        path: resolve(__dirname, 'dist'),
+        path: resolve(__dirname, '../server/app/public/dist'),
         publicPath: 'dist',
         filename: '[name].js'
     },
@@ -69,7 +69,7 @@ const conf = module.exports = {
 
 if(prod) {
     conf.plugins.push(
-        new CleanWP(['./dist']),
+        new CleanWP(['../server/app/public/dist']),
         new ExtractTextWP('work-stream.css')
     );
     conf.optimization = {

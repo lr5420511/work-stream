@@ -1,7 +1,10 @@
 <template>
     <el-container class="view-index">
         <el-header class="view-index-top"
-                   height="auto">
+                   height="auto"
+                   :style="{
+                       'background-color': $store.getters.color
+                   }">
             <el-row>
                 <el-col :span="22">
                     <el-image class="view-index-logo"

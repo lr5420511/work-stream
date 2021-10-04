@@ -6,4 +6,12 @@ module.exports = {
   // static: {
   //   enable: true,
   // }
+    static: {
+        enable: false,
+        package: 'egg-static'
+    },
+    mssql: {
+        enable: true,
+        package: 'egg-mssql'
+    }
 };

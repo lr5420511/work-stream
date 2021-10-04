@@ -1,9 +1,8 @@
 'use strict';
 
-/**
- * @param {Egg.Application} app - egg application
- */
 module.exports = app => {
-  const { router, controller } = app;
-  router.get('/', controller.home.index);
+    const { router, controller } = app;
+
+    // 获取系统设置
+    router.get('/query/settings', controller.controllerSettings.queryAll);
 };

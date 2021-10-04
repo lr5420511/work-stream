@@ -7,9 +7,12 @@
     "declarations": true
   },
   "dependencies": {
+    "async-series-each": "^1.0.2",
     "egg": "^2.15.1",
     "egg-mssql": "^1.0.3",
-    "egg-scripts": "^2.11.0"
+    "egg-scripts": "^2.11.0",
+    "koa-static": "^5.0.0",
+    "new-promiseify": "^1.1.1"
   },
   "devDependencies": {
     "autod": "^3.0.1",

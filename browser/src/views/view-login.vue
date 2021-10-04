@@ -38,23 +38,10 @@ export default {
     created: async function() {
         const { scenes } = this.$store.getters;
         if(scenes.some(scene => scene)) return;
-        //临时模拟请求
-        const temps = await new Promise(res => 
-            setTimeout(() => res([
-                './temp/images/1.jpg',
-                './temp/images/2.jpg',
-                './temp/images/3.jpg',
-                './temp/images/4.jpg',
-                './temp/images/5.jpg',
-                './temp/images/6.jpg',
-                './temp/images/7.jpg',
-                './temp/images/8.jpg',
-                './temp/images/9.jpg',
-                './temp/images/10.jpg',
-                './temp/images/11.jpg'
-            ]), 8000)
-        );
-        this.$store.commit('writeScenes', { scenes: temps });
+        let res = await fetch('/query/settings');
+        res = await res.json();
+        this.$store.commit('writeColor', { color: res.color });
+        this.$store.commit('writeScenes', { scenes: res.scenes });
     },
     mounted: function() {
         this.leftHeight = document.documentElement.clientHeight;
