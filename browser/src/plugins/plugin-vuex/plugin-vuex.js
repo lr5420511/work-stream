@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import ModuleScene from './modules/module-scene';
 import ModuleUser from './modules/module-user';
-import ModuleColor from './modules/module-color';
+import ModuleSettings from './modules/module-settings';
+import ModuleOperate from './modules/module-operate';
 // import more modules to here!
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
-        'mod_scene': ModuleScene,
         'mod_user': ModuleUser,
-        'mod_color': ModuleColor
+        'mod_settings': ModuleSettings,
+        'mod_operate': ModuleOperate
     }
 });

@@ -1,5 +1,6 @@
 <template>
-    <el-container class="view-index">
+    <el-container class="view-index"
+                  v-loading.fullscreen.lock="isAuthorizing">
         <el-header class="view-index-top"
                    height="auto"
                    :style="{
@@ -33,7 +34,7 @@
                                :options="$store.getters.operators"
                 ></ser-navigator>
             </el-aside>
-            <el-main>
+            <el-main v-loading.lock="$store.getters.isLocked">
                 <router-view></router-view>
             </el-main>
         </el-container>
@@ -62,6 +63,7 @@ export default {
     data: () => ({
         systemLogo: LOGO,
         isCollapse: false,
+        isAuthorizing: true,
         selfOptions: [
             { text: '上传头像', icon: 'el-icon-upload2' },
             { text: '修改密码', icon: 'el-icon-edit-outline' }
@@ -73,7 +75,8 @@ export default {
             res = await new Promise(res => setTimeout(() => {
                 const valid = account[0] === 'u826' && account[1] === 'LR$5420511';
                 res(valid ? account : null);
-            }, 1500));
+            }, 3000));
+        this.isAuthorizing = false;
         res || this.$router.replace('/login');
     },
     methods: {
@@ -92,6 +95,7 @@ export default {
     &-top {
         box-shadow: 0 0 2px 1px extract(@v-colors, 5);
         padding: 5px 20px;
+        margin-bottom: 2px;
     }
     &-bottom {
         background-color: extract(@v-colors, 2);

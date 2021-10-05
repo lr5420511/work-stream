@@ -1,8 +1,8 @@
 'use strict';
 
-const { Service } = require('egg');
+const AuthorizeService = require('../authorize-service');
 
-class SettingsService extends Service {
+class SettingsService extends AuthorizeService {
     async queryAll() {
         const { recordset } = await this.app.mssql.query('select * from settings');
         return recordset.map(record => ({
@@ -11,8 +11,10 @@ class SettingsService extends Service {
         }))[0];
     }
 
-    async writeColor() {
-
+    async writeColor(color, options) {
+        const { username, password, path } = options,
+            valid = await this.validate(username, password, path);
+        return valid && await this.app.mssql.query(`update settings set color = \'${color}\'`);
     }
 
     async writeScenes() {

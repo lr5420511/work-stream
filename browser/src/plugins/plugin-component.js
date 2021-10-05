@@ -16,6 +16,7 @@ import {
     Message,
     Header,
     Footer,
+    Loading,
     Dropdown,
     DropdownMenu,
     DropdownItem,
@@ -24,7 +25,9 @@ import {
     Col,
     Menu,
     Submenu,
-    MenuItem
+    MenuItem,
+    Alert,
+    ColorPicker
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -44,6 +47,7 @@ Vue.prototype.$message = Message;
     Progress,
     Header,
     Footer,
+    Loading,
     Dropdown,
     DropdownMenu,
     DropdownItem,
@@ -52,7 +56,9 @@ Vue.prototype.$message = Message;
     Col,
     Menu,
     Submenu,
-    MenuItem
+    MenuItem,
+    Alert,
+    ColorPicker
 ].reduce((res, cur) => res.use(cur), Vue);
 
 

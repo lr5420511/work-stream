@@ -21,7 +21,7 @@
 import ServiceScene from '../components/service-scene.vue';
 import ServiceLogin from '../components/service-login.vue';
 import ServiceProgress from '../components/service-progress.vue';
-import { USER_REGULAR, PWD_REGULAR, COMPLEX_VALIDATE_USER_URL } from '../config';
+import { USER_REGULAR, PWD_REGULAR, GLOBAL_SETTINGS_URL, COMPLEX_VALIDATE_USER_URL } from '../config';
 
 export default {
     components: {
@@ -38,10 +38,15 @@ export default {
     created: async function() {
         const { scenes } = this.$store.getters;
         if(scenes.some(scene => scene)) return;
-        let res = await fetch('/query/settings');
+        let res = await fetch(GLOBAL_SETTINGS_URL);
         res = await res.json();
-        this.$store.commit('writeColor', { color: res.color });
-        this.$store.commit('writeScenes', { scenes: res.scenes });
+        if(!res.error) {
+            const { color, scenes } = res.result;
+            this.$store.commit('writeColor', { color });
+            this.$store.commit('writeScenes', { scenes });
+            return;
+        }
+        throw new Error(res.result);
     },
     mounted: function() {
         this.leftHeight = document.documentElement.clientHeight;
