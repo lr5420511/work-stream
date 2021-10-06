@@ -16,7 +16,8 @@
                     </el-button>
                 </el-col>
             </el-row>
-            <el-row class="service-color-line service-color-divider">
+            <el-divider></el-divider>
+            <el-row class="service-color-line">
                 <el-col :span="13"
                         :offset="11"> 
                     <el-color-picker v-model="value"
@@ -55,18 +56,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url(../assets/less/variables.less);
-
 .service-color {
     &-wrap {
         padding: 0;
     }
     &-line {
         margin-bottom: 50px;
-    }
-    &-divider {
-        padding: 20px 0 0 0;
-        border-top: dashed 1px extract(@v-colors, 5);
     }
 }
 </style>

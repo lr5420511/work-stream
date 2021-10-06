@@ -26,20 +26,23 @@ export default {
         commitColor: async function(color) {
             const { username, password } = this.$store.getters;
             this.$store.commit('writeOperate', { isLocked: true });
-            let res = await fetch([
-                EDIT_SETTING_COLOR_URL,
-                '?username=',
-                username,
-                '&password=',
-                password,
-                '&color=',
-                color
-            ].join(''));
-            res = await res.json();
+            let res;
+            try {
+                res = await fetch([
+                    EDIT_SETTING_COLOR_URL, 
+                    `?username=${username}`, 
+                    `&password=${password}`, 
+                    `&color=${color}`
+                ].join(''));
+                res = await res.json();
+            } catch(err) {
+                this.$store.commit('writeOperate', { isLocked: false });
+                throw err;
+            }
             this.$store.commit('writeOperate', { isLocked: false });
             this.$message({
                 type: res.error ? 'error' : 'success',
-                message: res.error ? res.result : '本次操作执行成功'
+                message: res.error ? res.result : '颜色编辑成功'
             });
             this.$store.commit('writeColor', { color });
         }

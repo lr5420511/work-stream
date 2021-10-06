@@ -70,7 +70,7 @@ export default {
         ]
     }),
     created: async function() {
-        // 模拟身份验证
+        // 模拟身份验证,正式代码需要捕获异常后，关闭loading
         const account = [this.$store.getters.username, this.$store.getters.password],
             res = await new Promise(res => setTimeout(() => {
                 const valid = account[0] === 'u826' && account[1] === 'LR$5420511';

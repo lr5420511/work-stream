@@ -27,7 +27,9 @@ import {
     Submenu,
     MenuItem,
     Alert,
-    ColorPicker
+    ColorPicker,
+    Divider,
+    Upload
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -58,7 +60,9 @@ Vue.prototype.$message = Message;
     Submenu,
     MenuItem,
     Alert,
-    ColorPicker
+    ColorPicker,
+    Divider,
+    Upload
 ].reduce((res, cur) => res.use(cur), Vue);
 
 
