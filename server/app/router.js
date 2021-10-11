@@ -8,4 +8,10 @@ module.exports = app => {
 
     // 编辑颜色风格
     router.get('/edit/color', controller.controllerSettings.writeColor);
+
+    // 上传场景源图片
+    router.post('/upload/scene', controller.controllerSettings.appendScene);
+
+    // 删除场景源图片
+    router.get('/remove/scene', controller.controllerSettings.removeScene);
 };

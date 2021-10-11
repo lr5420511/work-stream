@@ -8,9 +8,11 @@
                       show-icon>
             </el-alert>
         </el-header>
-        <ser-color :color="$store.getters.color"
+        <el-main class="view-color-setting-content">
+            <ser-color :color="$store.getters.color"
                    @checked="commitColor">
-        </ser-color>
+            </ser-color>
+        </el-main>
     </el-container>
 </template>
 
@@ -56,6 +58,9 @@ export default {
         padding: 0;
         margin-bottom: 50px;
         line-height: 90%;
+    }
+    &-content {
+        padding: 0;
     }
 }
 </style>

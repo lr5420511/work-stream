@@ -28,7 +28,7 @@
         <el-container>
             <el-aside width="auto">
                 <ser-navigator class="view-index-navigator"
-                               minHeight="20rem"
+                               minHeight="22rem"
                                :isCollapsed="isCollapse"
                                :defaultPath="$store.getters.defaultPath"
                                :options="$store.getters.operators"

@@ -15,3 +15,12 @@ export const COMPLEX_VALIDATE_USER_URL = '';
 
 // 编辑系统颜色URL
 export const EDIT_SETTING_COLOR_URL = '/edit/color';
+
+// 上传场景图片URL
+export const UPLOAD_SETTING_SCENE_URL = '/upload/scene';
+
+// 删除场景图片URL
+export const REMOVE_SETTING_SCENE_URL = '/remove/scene';
+
+// 场景图片的最大数量
+export const SCENE_MAXIMUM_COUNT = 15;

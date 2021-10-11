@@ -19,8 +19,27 @@ class SettingsController extends Controller {
         this.ctx.body = { error: res[0], result: res[1] };
     }
 
-    async writeScenes() {
+    async appendScene() {
+        const { username, password } = this.ctx.query,
+            path = this.ctx.path,
+            reader = await this.ctx.getFileStream(),
+            res = await this.service.serviceSettings.appendScene(reader, {
+                username,
+                password,
+                path
+            });
+        this.ctx.body = { error: res[0], result: res[1] };
+    }
 
+    async removeScene() {
+        const { username, password, path } = this.ctx.query,
+            cpath = this.ctx.path,
+            res = await this.service.serviceSettings.removeScene(path, {
+                username,
+                password,
+                path: cpath
+            });
+        this.ctx.body = { error: res[0], result: res[1] };
     }
 }
 

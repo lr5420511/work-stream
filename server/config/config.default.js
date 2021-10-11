@@ -25,6 +25,13 @@ module.exports = appInfo => {
       default: 'index.html'
   };
 
+  // close security csrf
+  config.security = {
+      csrf: {
+          enable: false
+      }
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
@@ -35,7 +42,9 @@ module.exports = appInfo => {
               password: '123',
               database: 'WorkStream'
           }
-      }
+      },
+      // 场景图片存放目录路径
+      SCENES_DIRECTORY_PATH: '/resource/upload/scenes'
   };
 
   return {
