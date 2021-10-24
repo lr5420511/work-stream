@@ -29,7 +29,13 @@ import {
     Alert,
     ColorPicker,
     Divider,
-    Upload
+    Upload,
+    Tabs,
+    TabPane,
+    Table,
+    TableColumn,
+    Pagination,
+    Empty
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -62,7 +68,13 @@ Vue.prototype.$message = Message;
     Alert,
     ColorPicker,
     Divider,
-    Upload
+    Upload,
+    Tabs,
+    TabPane,
+    Table,
+    TableColumn,
+    Pagination,
+    Empty
 ].reduce((res, cur) => res.use(cur), Vue);
 
 

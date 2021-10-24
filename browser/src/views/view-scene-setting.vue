@@ -49,9 +49,10 @@ export default {
             );
             this.$message({
                 type: scount ? (fcount ? 'warning' : 'success') : 'error',
-                message: `本次上传图片${scount + fcount}张，其中上传成功${scount}张，上传失败${fcount}张（
-                    ${fails.map(cur => cur.name).join('、')}
-                ）`
+                message: `本次上传图片${scount + fcount}张，其中上传成功${scount}张，上传失败${fcount}张${
+                    fcount ? `（${fails.map(fail => fail.name).join('、')}）` : ''
+                }`,
+                duration: 9000
             });
         },
         removeScene: async function(picture) {
@@ -60,7 +61,12 @@ export default {
             this.$store.commit('writeOperate', { isLocked: true });
             let res;
             try {
-                res = await fetch([REMOVE_SETTING_SCENE_URL, '?username=', username, '&password=', password, '&path=', url].join(''));
+                res = await fetch([
+                    REMOVE_SETTING_SCENE_URL, 
+                    `?username=${username}`, 
+                    `&password=${password}`, 
+                    `&path=${url}`
+                ].join(''));
                 res = await res.json();
             } catch(err) {
                 this.$store.commit('writeOperate', { isLocked: false });

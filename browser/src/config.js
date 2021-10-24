@@ -24,3 +24,15 @@ export const REMOVE_SETTING_SCENE_URL = '/remove/scene';
 
 // 场景图片的最大数量
 export const SCENE_MAXIMUM_COUNT = 15;
+
+// 新增角色实例URL
+export const NEW_ROLE_URL = '/new/role';
+
+// 删除角色实例URL
+export const REMOVE_ROLE_URL = '/remove/role';
+
+// 编辑角色信息URL
+export const EDIT_ROLE_URL = '/edit/role';
+
+// 查询指定页角色集合URL
+export const QUERY_ROLES_URL = '/query/roles';

@@ -23,11 +23,13 @@
             <el-button type="primary"
                        icon="el-icon-position"
                        @click.stop="loginEnter">
-            立即登入</el-button>
+            立即登入
+            </el-button>
             <el-button type="primary"
                        @click.stop="loginCancel"
                        plain>
-            取 消</el-button>
+            取 消
+            </el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -93,7 +95,7 @@ export default {
 <style lang="less" scoped>
 .service-login {
     &-line {
-        margin: 0 20px 80px 20px;
+        margin-bottom: 80px;
     }
 }
 </style>

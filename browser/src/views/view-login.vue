@@ -141,7 +141,7 @@ export default {
         padding: 0;
     }
     &-auth {
-        margin-top: 150px;
+        margin: 150px 20px 0 20px;
     }
 }
 </style>

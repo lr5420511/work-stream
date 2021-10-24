@@ -14,4 +14,19 @@ module.exports = app => {
 
     // 删除场景源图片
     router.get('/remove/scene', controller.controllerSettings.removeScene);
+
+    // 新增角色实例
+    router.get('/new/role', controller.controllerRole.appendRole);
+
+    // 删除角色实例
+    router.get('/remove/role', controller.controllerRole.removeRole);
+
+    // 编辑角色信息
+    router.get('/edit/role', controller.controllerRole.writeRole);
+
+    // 查询指定单个角色信息
+    router.get('/query/role', controller.controllerRole.queryRole);
+
+    // 查询指定页多个角色信息
+    router.get('/query/roles', controller.controllerRole.queryRoles);
 };

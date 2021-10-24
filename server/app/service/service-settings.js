@@ -33,11 +33,9 @@ class SettingsService extends AuthorizeService {
         const { username, password, path } = options;
         let error = !(await this.validate(username, password, path));
         if(error) return [error, '您没有权限编辑系统颜色，提升权限后重试'];
-        await this.app.mssql.request().input(
-            'color',
-            Mssql.NVarChar(30),
-            color
-        ).query('update ColorSetting set color = @color');
+        await this.app.mssql.request()
+            .input('color', Mssql.NVarChar(30), color)
+            .query('update ColorSetting set color = @color');
         return [error, color];
     }
 
@@ -55,11 +53,9 @@ class SettingsService extends AuthorizeService {
         reader.pipe(writer);
         await once.call(writer, 'finish');
         const relative = join(scenesdir, filename);
-        await this.app.mssql.request().input(
-            'scene',
-            Mssql.NVarChar(60),
-            relative
-        ).query('insert into SceneSetting values(@scene)');
+        await this.app.mssql.request()
+            .input('scene', Mssql.NVarChar(60), relative)
+            .query('insert into SceneSetting values(@scene)');
         return [error, relative];
     }
 
@@ -69,11 +65,9 @@ class SettingsService extends AuthorizeService {
         if(error) return [error, '您没有权限删除场景图片，提升权限后重试'];
         const publicdir = this.app.config.mwStatic.path;
         await rmFile(join(publicdir, path));
-        await this.app.mssql.request().input(
-            'scene',
-            Mssql.NVarChar(60),
-            path
-        ).query('delete from SceneSetting where scene = @scene');
+        await this.app.mssql.request()
+            .input('scene', Mssql.NVarChar(60), path)
+            .query('delete from SceneSetting where scene = @scene');
         return [error, path];
     }
 }
