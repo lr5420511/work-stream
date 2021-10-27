@@ -9,7 +9,7 @@
             </el-alert>
         </el-header>
         <el-main class="view-roles-content">
-            <ser-group :to="tab" 
+            <ser-group :to.sync="tab" 
                        :tabs="[
                            { key: 'mainifest', title: '角色清单', received: true },
                            { key: 'new', title: '新增', received: true },

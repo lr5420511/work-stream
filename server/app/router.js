@@ -29,4 +29,19 @@ module.exports = app => {
 
     // 查询指定页多个角色信息
     router.get('/query/roles', controller.controllerRole.queryRoles);
+
+    // 新增权限实例
+    router.get('/new/limit', controller.controllerLimit.appendLimit);
+
+    // 删除权限实例
+    router.get('/remove/limit', controller.controllerLimit.removeLimit);
+
+    // 编辑权限信息
+    router.get('/edit/limit', controller.controllerLimit.writeLimit);
+
+    // 查询指定单个权限信息
+    router.get('/query/limit', controller.controllerLimit.queryLimit);
+
+    // 查询指定页多个权限信息
+    router.get('/query/limits', controller.controllerLimit.queryLimits);
 };

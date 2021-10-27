@@ -5,8 +5,10 @@ const { join } = require('path');
 const { createWriteStream, unlink } = require('fs');
 
 const AuthorizeService = require('../authorize-service');
-const Mssql = require('mssql');
 const promiseify = require('new-promiseify');
+
+const { queryColor, writeColor } = require('../access/access-color-setting');
+const { queryScenes, appendScene, removeScene } = require('../access/access-scene-setting');
 
 const [once, rmFile] = promiseify(
     EventEmitter.prototype.once,
@@ -15,27 +17,20 @@ const [once, rmFile] = promiseify(
 
 class SettingsService extends AuthorizeService {
     async queryAll() {
-        let colors = await this.app.mssql.query('select color from ColorSetting'),
-            scenes = await this.app.mssql.query('select scene from SceneSetting'),
-            error;
-        [colors, scenes] = [colors, scenes].map(cur => cur.recordset);
-        error = !(colors.length && scenes.length);
-        return [
-            error,
-            error ? '全局设置不存在或找不到' : {
-                color: colors[0].color,
-                scenes: scenes.map(scene => scene.scene)
-            }
-        ];
+        const { mssql } = this.app,
+            [color, scenes] = [await queryColor.call(mssql), await queryScenes.call(mssql)],
+            error = !(color && scenes.length);
+        return [error, error ? '全局设置不存在或找不到' : {
+            color: color.color,
+            scenes: scenes.map(scene => scene.scene)
+        }];
     }
 
     async writeColor(color, options) {
         const { username, password, path } = options;
         let error = !(await this.validate(username, password, path));
         if(error) return [error, '您没有权限编辑系统颜色，提升权限后重试'];
-        await this.app.mssql.request()
-            .input('color', Mssql.NVarChar(30), color)
-            .query('update ColorSetting set color = @color');
+        color = await writeColor.call(this.app.mssql, color);
         return [error, color];
     }
 
@@ -52,10 +47,8 @@ class SettingsService extends AuthorizeService {
             writer = createWriteStream(join(publicdir, scenesdir, filename));
         reader.pipe(writer);
         await once.call(writer, 'finish');
-        const relative = join(scenesdir, filename);
-        await this.app.mssql.request()
-            .input('scene', Mssql.NVarChar(60), relative)
-            .query('insert into SceneSetting values(@scene)');
+        let relative = join(scenesdir, filename);
+        relative = await appendScene.call(this.app.mssql, relative);
         return [error, relative];
     }
 
@@ -65,9 +58,7 @@ class SettingsService extends AuthorizeService {
         if(error) return [error, '您没有权限删除场景图片，提升权限后重试'];
         const publicdir = this.app.config.mwStatic.path;
         await rmFile(join(publicdir, path));
-        await this.app.mssql.request()
-            .input('scene', Mssql.NVarChar(60), path)
-            .query('delete from SceneSetting where scene = @scene');
+        path = await removeScene.call(this.app.mssql, path);
         return [error, path];
     }
 }

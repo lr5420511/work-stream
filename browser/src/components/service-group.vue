@@ -34,9 +34,9 @@ export default {
     },
     methods: {
         beforeLeaveHook: function(to) {
-            const valid = this.tabs.reduce((res, tab) =>
-                (tab.received || res.push(tab.key)) && res, []
-            ).indexOf(to) < 0;
+            const valid = this.tabs
+                .reduce((res, tab) => (tab.received || res.push(tab.key)) && res, [])
+                .indexOf(to) < 0;
             return valid || to === this.tab;
         }
     },
@@ -44,6 +44,9 @@ export default {
         to: function(val) {
             const valid = this.tabs.some(tab => tab.key === val);
             valid && (this.tab = val);
+        },
+        tab: function(val) {
+            this.$emit('update:to', val);
         }
     }
 };
