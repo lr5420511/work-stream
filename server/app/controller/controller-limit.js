@@ -57,6 +57,17 @@ class LimitController extends Controller {
             });
         this.ctx.body = { error: res[0], result: res[1] }; 
     }
+
+    async queryNavigators() {
+        const { username, password } = this.ctx.query,
+            path = this.ctx.path,
+            res = await this.service.serviceLimit.queryNavigators({
+                username,
+                password,
+                path
+            });
+        this.ctx.body = { error: res[0], result: res[1] };
+    }
 }
 
 module.exports = LimitController;

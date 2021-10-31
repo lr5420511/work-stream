@@ -44,4 +44,7 @@ module.exports = app => {
 
     // 查询指定页多个权限信息
     router.get('/query/limits', controller.controllerLimit.queryLimits);
+
+    // 查询所有导航权限
+    router.get('/query/navigators', controller.controllerLimit.queryNavigators);
 };
