@@ -3,19 +3,21 @@
              label-position="top"
              :model="state"
              :rules="rules">
-        <el-form-item label="角色名称"
+        <el-form-item class="service-role-line"
+                      label="角色名称"
                       prop="name">
             <el-input v-model="state.name">
             </el-input>
         </el-form-item>
-        <el-form-item label="说明"
+        <el-form-item class="service-role-line"
+                      label="说明"
                       prop="description">
             <el-input type="textarea"
                       :rows="5"
                       v-model="state.description">
             </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="service-role-line">
             <el-button type="primary"
                        icon="el-icon-check"
                        @click.stop="roleEnter">
@@ -95,7 +97,7 @@ export default {
 <style lang="less" scoped>
 .service-role {
     &-line {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 }
 </style>

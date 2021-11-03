@@ -36,3 +36,21 @@ export const EDIT_ROLE_URL = '/edit/role';
 
 // 查询指定页角色集合URL
 export const QUERY_ROLES_URL = '/query/roles';
+
+// 新增权限实例URL
+export const NEW_LIMIT_URL = '/new/limit';
+
+// 删除权限实例URL
+export const REMOVE_LIMIT_URL = '/remove/limit';
+
+// 编辑权限信息URL
+export const EDIT_LIMIT_URL = '/edit/limit';
+
+// 查询权限实例明细URL
+export const QUERY_LIMIT_URL = '/query/limit';
+
+// 查询指定页权限集合URL
+export const QUERY_LIMITES_URL = '/query/limits';
+
+// 查询导航权限集合URL
+export const QUERY_NAVIGATORS_URL = '/query/navigators';

@@ -35,7 +35,11 @@ import {
     Table,
     TableColumn,
     Pagination,
-    Empty
+    Empty,
+    RadioGroup,
+    Radio,
+    Select,
+    Option
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -74,7 +78,11 @@ Vue.prototype.$message = Message;
     Table,
     TableColumn,
     Pagination,
-    Empty
+    Empty,
+    RadioGroup,
+    Radio,
+    Select,
+    Option
 ].reduce((res, cur) => res.use(cur), Vue);
 
 

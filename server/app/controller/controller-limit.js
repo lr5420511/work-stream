@@ -6,7 +6,7 @@ class LimitController extends Controller {
     async appendLimit() {
         const { username, password, name, path, navigator, parentID } = this.ctx.query,
             cpath = this.ctx.path,
-            res = await this.service.serviceLimit.appendLimit(name, path, navigator, parentID, {
+            res = await this.service.serviceLimit.appendLimit(name, path, navigator === 'true', parentID, {
                 username,
                 password,
                 path: cpath
@@ -50,7 +50,7 @@ class LimitController extends Controller {
     async queryLimits() {
         const { username, password, navigator, index, count } = this.ctx.query,
             path = this.ctx.path,
-            res = await this.service.serviceLimit.queryLimits(navigator, index, count, {
+            res = await this.service.serviceLimit.queryLimits(navigator === 'true', index, count, {
                 username,
                 password,
                 path
