@@ -1,0 +1,18 @@
+{
+  "name": "work-stream-mobile",
+  "version": "1.0.0",
+  "description": "This is a simply work stream example for mobile.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "work",
+    "stream",
+    "vue",
+    "cordova",
+    "mobile"
+  ],
+  "author": "Alex liao",
+  "license": "ISC"
+}
