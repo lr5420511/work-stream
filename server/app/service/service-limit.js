@@ -6,16 +6,23 @@ const AuthorizeService = require('../authorize-service');
 const { appendLimit, removeLimit, writeLimit, queryLimit, queryLimits, queryTotal } = require('../access/access-limit');
 
 class LimitService extends AuthorizeService {
-    async appendLimit(name, path, navigator, parentID, options) {
+    async appendLimit(name, icon, path, navigator, parentID, options) {
         const { username, password } = options;
         let error = !(await this.validate(username, password, options.path));
         if(error) return [error, '您没有权限新增权限实例，提升权限后重试'];
-        [path, parentID] = [path, parentID].map(cur => cur || null);
+        [icon, path, parentID] = [icon, path, parentID].map(cur => cur || null);
         const parent = await queryLimit.call(this.app.mssql, parentID);
         error = !((parent && parent.navigator && !parent.parentID) || !parentID);
         if(error) return [error, '新增权限实例失败，提交的父导航权限不合法，请检查'];
-        const id = await appendLimit.call(this.app.mssql, name, path, navigator, parentID);
-        return [error, { id, name, path, navigator, parentID }];
+        const id = await appendLimit.call(this.app.mssql, name, icon, path, navigator, parentID);
+        return [error, { 
+            id, 
+            name, 
+            icon: icon || '', 
+            path: path || '', 
+            navigator, 
+            parentID: parentID || '' 
+        }];
     }
 
     async removeLimit(id, options) {
@@ -39,20 +46,19 @@ class LimitService extends AuthorizeService {
         return [error, id];
     }
 
-    async writeLimit(id, name, path, options) {
+    async writeLimit(id, name, icon, path, options) {
         const { username, password } = options;
         let error = !(await this.validate(username, password, options.path));
         if(error) return [error, '您没有权限编辑权限实例，提升权限后重试'];
         let limit = await queryLimit.call(this.app.mssql, id);
-        error = !limit || (limit.navigator ? limit.parentID && !path : !path);
-        if(error) return [error, '编辑权限实例失败，提交的权限路由在当前类别下不能为空，请检查'];
-        path = path || null;
-        limit = await writeLimit.call(this.app.mssql, id, name, path);
-        return [error, {
-            id: limit.id,
-            name: limit.name,
-            path: limit.path
-        }];
+        error = !limit || (limit.navigator ? (limit.parentID || limit.path ? !path : path) : !path);
+        if(error) return [error, '编辑权限实例失败，提交的权限路由在当前类别下不合法，请检查'];
+        [icon, path] = [icon, path].map(cur => cur || null);
+        limit = await writeLimit.call(this.app.mssql, id, name, icon, path);
+        return [error, Object.assign(limit, {
+            icon: limit.icon || '',
+            path: limit.path || ''
+        })];
     }
 
     async queryLimit(id, options) {
@@ -63,14 +69,12 @@ class LimitService extends AuthorizeService {
         error = !limit;
         if(error) return [error, '指定的权限明细，不存在或找不到'];
         const parent = await queryLimit.call(this.app.mssql, limit.parentID);
-        return [error, {
-            id,
-            name: limit.name,
-            path: limit.path,
-            navigator: limit.navigator,
-            parentID: limit.parentID,
-            parentName: parent ? parent.name : null
-        }];
+        return [error, Object.assign(limit, {
+            icon: limit.icon || '',
+            path: limit.path || '',
+            parentID: limit.parentID || '',
+            parentName: parent ? parent.name : ''
+        })];
     }
 
     async queryLimits(navigator, index, count, options) {
@@ -82,7 +86,7 @@ class LimitService extends AuthorizeService {
             limits = await queryLimits.call(this.app.mssql, navigator, skip, count);
         return [error, {
             total,
-            limits: limits.map(limit => ({ id: limit.id, name: limit.name, path: limit.path }))
+            limits: limits.map(cur => Object.assign(cur, { path: cur.path || '' }))
         }];
     }
 
@@ -98,12 +102,9 @@ class LimitService extends AuthorizeService {
             const temp = await queryLimit.call(this.app.mssql, cur.id);
             cur.parentID = temp.parentID;
         });
-        return [error, navigators.map(cur => ({
-            id: cur.id,
-            name: cur.name,
-            path: cur.path,
-            parentID: cur.parentID
-        }))];
+        return [error, navigators.map(cur => 
+            Object.assign(cur, { path: cur.path || '', parentID: cur.parentID || '' })
+        )];
     }
 }
 

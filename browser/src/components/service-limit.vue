@@ -11,9 +11,15 @@
             </el-radio-group>
         </el-form-item>
         <el-form-item class="service-limit-line"
-                      label="名称"
+                      label="权限名称"
                       prop="name">
             <el-input v-model="state.name">
+            </el-input>
+        </el-form-item>
+        <el-form-item class="service-limit-line"
+                      label="图标"
+                      prop="icon">
+            <el-input v-model="state.icon">
             </el-input>
         </el-form-item>
         <el-form-item class="service-limit-line"
@@ -70,6 +76,7 @@ export default {
         state: {
             id: null,
             name: '',
+            icon: '',
             path: '',
             navigator: false,
             parent: ''
@@ -91,6 +98,29 @@ export default {
                     trigger: 'blur'
                 }
             ],
+            icon: [
+                {
+                    validator: (_, val, callback) => {
+                        const { navigator, parent } = this.state,
+                            valid = [
+                                [
+                                    val => val.length <= 50,
+                                    '权限图标必须是0至50个字符，请检查'
+                                ],
+                                [
+                                    val => navigator ? (parent ? !val : val) : !val,
+                                    `${navigator ? '导航' : '操作'}权限模式下，当前的权限图标不合法，请检查`
+                                ]
+                            ].every(([validator, text]) => {
+                                const valid = validator(val);
+                                valid || callback(new Error(text));
+                                return valid;
+                            });
+                        valid && callback();
+                    },
+                    trigger: 'blur'
+                }
+            ],
             path: [
                 {
                     validator: (_, val, callback) => {
@@ -103,7 +133,6 @@ export default {
                                 [
                                     val => /^(?:\/|(?:\/(?:[^ \n\/]+\/)*[^ \n\/]+)?)$/.test(val),
                                     '权限路由格式不合法，请检查'
-
                                 ],
                                 [
                                     val => navigator ? (!parent || val) : val,
@@ -143,7 +172,7 @@ export default {
         },
         limitCancel: function() {
             this.$refs['limitForm'].clearValidate();
-            Object.assign(this.state, { id: null, name: '', path: '', navigator: false, parent: '' }, this.limit);
+            Object.assign(this.state, { id: null, name: '', icon: '', path: '', navigator: false, parent: '' }, this.limit);
         }
     },
     watch: {

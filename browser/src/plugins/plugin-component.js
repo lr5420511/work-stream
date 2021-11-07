@@ -39,7 +39,9 @@ import {
     RadioGroup,
     Radio,
     Select,
-    Option
+    Option,
+    Descriptions,
+    DescriptionsItem
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -82,7 +84,9 @@ Vue.prototype.$message = Message;
     RadioGroup,
     Radio,
     Select,
-    Option
+    Option,
+    Descriptions,
+    DescriptionsItem
 ].reduce((res, cur) => res.use(cur), Vue);
 
 

@@ -88,7 +88,7 @@ export default {
 .view-scene-setting {
     &-tip {
         padding: 0;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
         line-height: 90%;
     }
     &-content {

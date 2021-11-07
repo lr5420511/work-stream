@@ -4,9 +4,9 @@ const { Controller } = require('egg');
 
 class LimitController extends Controller {
     async appendLimit() {
-        const { username, password, name, path, navigator, parentID } = this.ctx.query,
+        const { username, password, name, icon, path, navigator, parentID } = this.ctx.query,
             cpath = this.ctx.path,
-            res = await this.service.serviceLimit.appendLimit(name, path, navigator === 'true', parentID, {
+            res = await this.service.serviceLimit.appendLimit(name, icon, path, navigator === 'true', parentID, {
                 username,
                 password,
                 path: cpath
@@ -26,9 +26,9 @@ class LimitController extends Controller {
     }
 
     async writeLimit() {
-        const { username, password, id, name, path } = this.ctx.query,
+        const { username, password, id, name, icon, path } = this.ctx.query,
             cpath = this.ctx.path,
-            res = await this.service.serviceLimit.writeLimit(id, name, path, {
+            res = await this.service.serviceLimit.writeLimit(id, name, icon, path, {
                 username, 
                 password,
                 path: cpath

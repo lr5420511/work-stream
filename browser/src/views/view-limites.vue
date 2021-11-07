@@ -15,7 +15,14 @@
                            { key: 'new', title: '新增', received: true },
                            { key: 'edit', title: '编辑', received: false }
                        ]">
-                <ser-limites slot="mainifest">
+                <ser-limites slot="mainifest"
+                             limitesHeight="12.2rem"
+                             :fill="true"
+                             :total="total"
+                             :limites="limites"
+                             @query="enterQueryLimites"
+                             @detail="enterQueryLimit"
+                             @remove="enterRemoveLimit">
                 </ser-limites>
                 <ser-limit slot="new"
                            class="view-limites-detail"
@@ -23,7 +30,10 @@
                            @validated="enterNewLimit">
                 </ser-limit>
                 <ser-limit slot="edit"
-                           class="view-limites-detail">
+                           class="view-limites-detail"
+                           :limit="middle"
+                           :navigators="navigators"
+                           @validated="enterEditLimit">
                 </ser-limit>
             </ser-group>
         </el-main>
@@ -44,20 +54,24 @@ export default {
     },
     data: () => ({
         tab: '',
-        olds: []
+        navigators: [],
+        limites: [],
+        total: 0,
+        middle: null
     }),
-    computed: {
-        navigators: cur => cur.olds.map(old => 
-            ({ id: old.id, name: old.name, disable: old.path || old.parentID })
-        )
-    },
     created: async function() {
         const { username, password } = this.$store.getters;
         let res = await fetch([QUERY_NAVIGATORS_URL, `?username=${username}`, `&password=${password}`].join(''));
         res = await res.json();
         const { error, result } = res;
         if(!error) {
-            this.olds.splice(0, this.olds.length, ...result);
+            this.navigators.splice(0, this.navigators.length, ...result.map(cur => 
+                ({ 
+                    id: cur.id, 
+                    name: cur.name,
+                    disable: Boolean(cur.path || cur.parentID) 
+                })
+            ));
             return;
         }
         this.$message({ type: 'error', message: result });
@@ -74,6 +88,7 @@ export default {
                     `?username=${username}`,
                     `&password=${password}`,
                     `&name=${limit.name}`,
+                    `&icon=${limit.icon}`,
                     `&path=${limit.path}`,
                     `&navigator=${limit.navigator}`,
                     `&parentID=${limit.parent}`
@@ -89,6 +104,125 @@ export default {
                 type: error ? 'error' : 'success',
                 message: error ? result : '权限新增成功'
             });
+        },
+        enterEditLimit: async function(limit) {
+            if(!limit) return;
+            const { username, password } = this.$store.getters;
+            this.$store.commit('writeOperate', { isLocked: true });
+            let res;
+            try {
+                res = await fetch([
+                    EDIT_LIMIT_URL,
+                    `?username=${username}`,
+                    `&password=${password}`,
+                    `&id=${limit.id}`,
+                    `&name=${limit.name}`,
+                    `&icon=${limit.icon}`,
+                    `&path=${limit.path}`
+                ].join(''));
+                res = await res.json();
+            } catch(err) {
+                this.$store.commit('writeOperate', { isLocked: false });
+                throw err;
+            }
+            this.$store.commit('writeOperate', { isLocked: false });
+            const { error, result } = res;
+            if(!error) {
+                Object.assign(this.middle, result);
+                this.tab = 'mainifest';
+                return;
+            }
+            this.$message({ type: 'error', message: result });
+        },
+        enterQueryLimites: async function(navigator, index, count) {
+            const { username, password } = this.$store.getters;
+            this.$store.commit('writeOperate', { isLocked: true });
+            let res;
+            try {
+                res = await fetch([
+                    QUERY_LIMITES_URL,
+                    `?username=${username}`,
+                    `&password=${password}`,
+                    `&navigator=${navigator}`,
+                    `&index=${index}`,
+                    `&count=${count}`
+                ].join(''));
+                res = await res.json();
+            } catch(err) {
+                this.$store.commit('writeOperate', { isLocked: false });
+                throw err;
+            }
+            this.$store.commit('writeOperate', { isLocked: false });
+            const { error, result } = res;
+            if(!error) {
+                this.total = result.total;
+                this.limites.splice(0, this.limites.length, ...result.limits.map(cur =>
+                    Object.assign(cur, {
+                        icon: '',
+                        navigator: false,
+                        parent: '',
+                        parentName: '',
+                        completed: false
+                    })
+                ));
+                return;
+            }
+            this.$message({ type: 'error', message: result });
+        },
+        enterQueryLimit: async function(limit, expand) {
+            if(!limit.completed) {
+                const { username, password } = this.$store.getters;
+                this.$store.commit('writeOperate', { isLocked: true });
+                let res;
+                try {
+                    res = await fetch([
+                        QUERY_LIMIT_URL,
+                        `?username=${username}`,
+                        `&password=${password}`,
+                        `&id=${limit.id}`
+                    ].join(''));
+                    res = await res.json();
+                } catch(err) {
+                    this.$store.commit('writeOperate', { isLocked: false });
+                    throw err;
+                }
+                this.$store.commit('writeOperate', { isLocked: false });
+                const { error, result } = res;
+                if(error) return this.$message({ type: 'error', message: result });
+                const parent = result.parentID;
+                delete result.parentID;
+                Object.assign(limit, result, {
+                    parent,
+                    completed: true
+                });
+            }
+            if(expand) return;
+            Object.assign(this, { middle: limit, tab: 'edit' });
+        },
+        enterRemoveLimit: async function(limit, index, limites) {
+            const { username, password } = this.$store.getters;
+            this.$store.commit('writeOperate', { isLocked: true });
+            let res;
+            try {
+                res = await fetch([
+                    REMOVE_LIMIT_URL,
+                    `?username=${username}`,
+                    `&password=${password}`,
+                    `&id=${limit.id}`
+                ].join(''));
+                res = await res.json();
+            } catch(err) {
+                this.$store.commit('writeOperate', { isLocked: false });
+                throw err;
+            }
+            this.$store.commit('writeOperate', { isLocked: false });
+            const { error, result } = res;
+            if(!error) {
+                limites.splice(limites.indexOf(limit), 1);
+                this.total--;
+                return;
+            }
+            this.$message({ type: 'error', message: result });
         }
     }
 };
@@ -99,7 +233,7 @@ export default {
     &-tip {
         padding: 0;
         line-height: 90%;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
     }
     &-content {
         padding: 0;

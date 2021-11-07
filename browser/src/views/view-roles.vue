@@ -16,7 +16,7 @@
                            { key: 'edit', title: '编辑', received: false }
                        ]">
                 <ser-roles slot="mainifest"
-                           rolesHeight="11rem"
+                           rolesHeight="12.2rem"
                            :fill="true"
                            :total="total"
                            :roles="roles"
@@ -177,7 +177,7 @@ export default {
 .view-roles {
     &-tip {
         padding: 0;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
         line-height: 90%;
     }
     &-content {
