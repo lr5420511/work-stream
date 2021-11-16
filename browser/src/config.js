@@ -54,3 +54,15 @@ export const QUERY_LIMITES_URL = '/query/limits';
 
 // 查询导航权限集合URL
 export const QUERY_NAVIGATORS_URL = '/query/navigators';
+
+// 查询角色导航权限集合URL
+export const QUERY_NAVIGATORS_FOR_ROLE_URL = '/query/navigators-for-role';
+
+// 查询角色操作权限集合URL
+export const QUERY_OPERATORS_FOR_ROLE_URL = '/query/operators-for-role';
+
+// 授权角色导航权限集合URL
+export const AUTHORIZE_NAVIGATORS_FOR_ROLE_URL = '/authorize/navigators-for-role';
+
+// 授权角色操作权限集合URL
+export const AUTHORIZE_OPERATORS_FOR_ROLE_URL = '/authorize/operators-for-role';

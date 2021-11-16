@@ -16,7 +16,7 @@
                            { key: 'edit', title: '编辑', received: false }
                        ]">
                 <ser-roles slot="mainifest"
-                           rolesHeight="12.2rem"
+                           rolesHeight="12.5rem"
                            :fill="true"
                            :total="total"
                            :roles="roles"

@@ -41,7 +41,11 @@ import {
     Select,
     Option,
     Descriptions,
-    DescriptionsItem
+    DescriptionsItem,
+    Checkbox,
+    CheckboxGroup,
+    Skeleton,
+    SkeletonItem
 } from 'element-ui';
 
 Vue.prototype.$message = Message;
@@ -86,7 +90,11 @@ Vue.prototype.$message = Message;
     Select,
     Option,
     Descriptions,
-    DescriptionsItem
+    DescriptionsItem,
+    Checkbox,
+    CheckboxGroup,
+    Skeleton,
+    SkeletonItem
 ].reduce((res, cur) => res.use(cur), Vue);
 
 

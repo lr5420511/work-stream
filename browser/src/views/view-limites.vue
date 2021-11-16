@@ -16,7 +16,7 @@
                            { key: 'edit', title: '编辑', received: false }
                        ]">
                 <ser-limites slot="mainifest"
-                             limitesHeight="12.2rem"
+                             limitesHeight="12.5rem"
                              :fill="true"
                              :total="total"
                              :limites="limites"

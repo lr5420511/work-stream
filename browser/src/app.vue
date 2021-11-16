@@ -22,6 +22,7 @@ html {
 body {
     .flex-mx();
     margin: 0;
+    font-family: consolas;
 }
 </style>
 

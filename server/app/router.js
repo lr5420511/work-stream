@@ -47,4 +47,16 @@ module.exports = app => {
 
     // 查询所有导航权限
     router.get('/query/navigators', controller.controllerLimit.queryNavigators);
+
+    // 查询指定角色的导航模式权限
+    router.get('/query/navigators-for-role', controller.controllerRoleLimit.queryNavigators);
+
+    // 查询指定角色的操作模式权限
+    router.get('/query/operators-for-role', controller.controllerRoleLimit.queryOperators);
+
+    // 授权指定角色导航模式权限
+    router.get('/authorize/navigators-for-role', controller.controllerRoleLimit.authorizeNavigators);
+
+    // 授权指定角色操作模式权限
+    router.get('/authorize/operators-for-role', controller.controllerRoleLimit.authorizeOperators);
 };
