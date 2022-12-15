@@ -2,8 +2,7 @@
     <el-container>
         <el-header class="view-scene-setting-tip"
                    height="auto">
-            <el-alert title="页面描述"
-                      description="该页面提供系统场景源图片的编辑功能，可以上传新增源图片，当然也可以删除已存在的源图片"
+            <el-alert description="该页面提供系统场景源图片的编辑功能，可以上传新增源图片，当然也可以删除已存在的源图片"
                       :closable="false"
                       show-icon>
             </el-alert>

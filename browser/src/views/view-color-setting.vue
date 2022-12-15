@@ -2,8 +2,7 @@
     <el-container>
         <el-header class="view-color-setting-tip"
                    height="auto">
-            <el-alert title="页面描述"
-                      description="该页面提供系统页头颜色风格的编辑功能"
+            <el-alert description="该页面提供系统页头颜色风格的编辑功能"
                       :closable="false"
                       show-icon>
             </el-alert>

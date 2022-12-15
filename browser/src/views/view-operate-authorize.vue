@@ -2,8 +2,7 @@
     <el-container>
         <el-header class="view-operate-authorize-tip"
                    height="auto">
-            <el-alert title="页面描述"
-                      description="该页面提供系统角色操作模式权限的授权功能"
+            <el-alert description="该页面提供系统角色操作模式权限的授权功能"
                       :closable="false"
                       show-icon>
             </el-alert>

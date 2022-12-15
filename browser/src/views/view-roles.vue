@@ -2,8 +2,7 @@
     <el-container>
         <el-header class="view-roles-tip"
                    height="auto">
-            <el-alert title="页面描述"
-                      description="该页面提供系统角色的管理功能，可以分段查询角色信息，同时也可以进行新增、编辑和删除操作"
+            <el-alert description="该页面提供系统角色的管理功能，可以分段查询角色信息，同时也可以进行新增、编辑和删除操作"
                       :closable="false"
                       show-icon>
             </el-alert>
@@ -16,7 +15,7 @@
                            { key: 'edit', title: '编辑', received: false }
                        ]">
                 <ser-roles slot="mainifest"
-                           rolesHeight="12.5rem"
+                           rolesHeight="13.5rem"
                            :fill="true"
                            :total="total"
                            :roles="roles"

@@ -2,8 +2,7 @@
     <el-container>
         <el-header class="view-limites-tip"
                    height="auto">
-            <el-alert title="页面描述"
-                      description="该页面提供系统权限的管理功能，可以分段查询权限信息，同时也可以进行新增、编辑、删除和查看明细操作"
+            <el-alert description="该页面提供系统权限的管理功能，可以分段查询权限信息，同时也可以进行新增、编辑、删除和查看明细操作"
                       :closable="false"
                       show-icon>
             </el-alert>
@@ -16,7 +15,7 @@
                            { key: 'edit', title: '编辑', received: false }
                        ]">
                 <ser-limites slot="mainifest"
-                             limitesHeight="12.5rem"
+                             limitesHeight="13.5rem"
                              :fill="true"
                              :total="total"
                              :limites="limites"
